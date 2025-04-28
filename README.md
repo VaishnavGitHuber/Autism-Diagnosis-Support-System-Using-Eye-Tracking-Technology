@@ -1,3 +1,1 @@
-* 28 April 2025 
-1. Study Problem Statement - what is eye tracking ? How data is generated ? How eye tracking is interconnected with the Autism ? 
-
+[1. PROBLEM STATEMENT 28/04/2025](https://medium.com/p/799c856abfe8)
