@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autism Diagnosis Research Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>🧠 Multimodal Predictive Framework for Autism Diagnosis</h1>
+    <p>Integrating Eye-Tracking Scan Path Images with Clinical Metadata</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#abstract">Abstract</a>
+    <a href="#introduction">Introduction</a>
+    <a href="#methodology">Methodology</a>
+    <a href="#dataset">Dataset</a>
+    <a href="#results">Results</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#predict">Try the Model</a>
+  </nav>
+
+  <!-- Abstract -->
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>
+      Early and accurate diagnosis of Autism Spectrum Disorder (ASD) remains a critical challenge 
+      due to its complex behavioral manifestations and reliance on subjective clinical evaluations. 
+      This study proposes a <b>multimodal predictive framework</b> that integrates demographic and clinical 
+      metadata with eye-tracking scan path images using an <b>attention-based fusion technique</b>. 
+    </p>
+    <p>
+      The framework achieved <b>99% accuracy</b>, significantly outperforming unimodal approaches. 
+      By aligning heterogeneous data, it captures both behavioral and visual cues essential for autism prediction, 
+      demonstrating the power of deep learning in clinical decision support.
+    </p>
+  </section>
+
+  <!-- Introduction -->
+  <section id="introduction">
+    <h2>Introduction</h2>
+    <p>
+      Autism Spectrum Disorder (ASD) is a neurodevelopmental condition that affects 
+      <b>communication, behavior, and social interaction</b>. The prevalence of autism has increased globally, 
+      with approximately 1 in 36 children in the U.S. identified as autistic (CDC, 2022). 
+      Early detection is crucial because interventions significantly improve language, 
+      social skills, and adaptive behaviors.
+    </p>
+    <p>
+      Traditional diagnosis relies on subjective methods such as clinical observation and behavioral checklists, 
+      which can delay detection and introduce bias. Machine learning has emerged as a solution, but unimodal 
+      models (e.g., only using metadata or only images) fail to capture the <b>multidimensional nature of ASD</b>. 
+      Our multimodal framework overcomes these challenges by fusing both <b>visual gaze features</b> and 
+      <b>clinical metadata</b>.
+    </p>
+  </section>
+
+  <!-- Methodology -->
+  <section id="methodology">
+    <h2>Proposed Methodology</h2>
+    <h3>Feature Extraction</h3>
+    <ul>
+      <li><b>Image Branch:</b> Eye-tracking scanpath images (128×128 pixels) processed using 
+          <b>MobileNetV2</b> for visual embeddings.</li>
+      <li><b>Metadata Branch:</b> Age, Gender, and CARS scores normalized and passed through dense layers.</li>
+    </ul>
+
+    <h3>Fusion Strategy</h3>
+    <p>
+      An <b>attention-based fusion mechanism</b> learns to assign weights to each modality, ensuring that 
+      the most informative features (either behavioral or clinical) dominate in prediction. 
+      This adaptive strategy enhances robustness and generalization.
+    </p>
+
+    <h3>Architecture</h3>
+    <p>
+      The final architecture combines <b>image embeddings</b> and <b>metadata embeddings</b>, 
+      applies dropout for regularization, and outputs a binary classification (ASD vs Control) 
+      using a sigmoid activation.
+    </p>
+  </section>
+
+  <!-- Dataset -->
+  <section id="dataset">
+    <h2>Dataset & Preprocessing</h2>
+    <p>
+      The dataset includes both <b>participant metadata</b> and <b>eye-tracking scanpath images</b>:
+    </p>
+     <div class="image-box">
+      <h3>Dataset Preprocessing Pipeline</h3>
+      <img src="{{ url_for('static', filename='images/Pipeline.png') }}" 
+           alt="Dataset Preprocessing Flowchart" />
+      <p class="caption">Figure: Data preprocessing steps for metadata and scanpath images.</p>
+    </div>
+    <ul>
+      <li><b>Metadata:</b> Age, Gender, and Childhood Autism Rating Scale (CARS) scores.</li>
+      <li><b>Images:</b> Scanpaths transformed into grayscale images (128×128 pixels), normalized to [0,1].</li>
+      <li><b>Folders:</b> TSImages (Autism) and TCImages (Control), linked with participant IDs.</li>
+    </ul>
+    <p>
+      Preprocessing involved <b>z-score normalization</b>, <b>image augmentation</b> 
+      (flips, rotations, zooms), and <b>class balancing</b> using weighted loss functions. 
+      An 80-20 stratified split ensured fair evaluation.
+    </p>
+  </section>
+
+  <!-- Results -->
+  <section id="results">
+    <h2>Results</h2>
+    <h3>Performance Metrics</h3>
+    <ul>
+      <li><b>Accuracy:</b> 99.0%</li>
+      <li><b>Sensitivity (Recall):</b> 98.5%</li>
+      <li><b>Specificity:</b> 99.2%</li>
+      <li><b>AUC:</b> 0.995</li>
+    </ul>
+<div class="image-box">
+      <h3>Performance Comparison</h3>
+      <img src="{{ url_for('static', filename='images/flowchart2.png') }}" 
+           alt="Results Graph" />
+      <p class="caption">Figure: Comparison of proposed model vs baseline methods.</p>
+    </div>
+    <h3>Comparison with Other Methods</h3>
+    <ul>
+      <li>Image-only CNN: 83.4% accuracy</li>
+      <li>Metadata-only MLP: 78.9% accuracy</li>
+      <li>Simple Concatenation Fusion: 88.1% accuracy</li>
+      <li><b>Proposed Attention-Based Fusion:</b> 99.0% accuracy</li>
+    </ul>
+    <p>
+      The multimodal attention fusion clearly outperformed unimodal and baseline methods, 
+      demonstrating its superiority in capturing diverse ASD markers.
+    </p>
+  </section>
+
+  <!-- Conclusion -->
+  <section id="conclusion">
+    <h2>Conclusion</h2>
+    <p>
+      This project developed a robust multimodal framework for ASD diagnosis by combining 
+      <b>eye-tracking scanpath images</b> and <b>clinical metadata</b>. 
+      The attention-based fusion mechanism improved performance, achieving near-perfect 
+      prediction accuracy. 
+    </p>
+    <p>
+      Future work includes expanding datasets, fine-tuning CNN backbones, 
+      and incorporating additional behavioral or neuroimaging modalities to improve generalization. 
+      This approach highlights the potential of AI-driven multimodal frameworks in 
+      <b>objective, scalable, and early autism screening</b>.
+    </p>
+  </section>
+
+  <!-- Prediction Section -->
+  <section id="predict">
+    <h2>Try the Model</h2>
+    <form method="POST" enctype="multipart/form-data">
+      <label>Upload Eye-Tracking Image:</label>
+      <input type="file" name="image" required><br>
+
+      <label>Age:</label>
+      <input type="number" name="age" step="1" required><br>
+
+      <label>Gender:</label>
+      <select name="gender" required>
+        <option value="1">Male</option>
+        <option value="0">Female</option>
+      </select><br>
+
+      <label>CARS Score:</label>
+      <input type="number" name="cars" step="0.1" required><br>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+      <h3>Prediction Result</h3>
+      <p><b>Class:</b> {{ prediction }}</p>
+      <p><b>Confidence:</b> {{ probability }}</p>
+    </div>
+    {% endif %}
+  </section>
+
+  <footer>
+    <p>© 2025 Research Project by Vaishnav Krishna P</p>
+  </footer>
+</body>
+</html>
